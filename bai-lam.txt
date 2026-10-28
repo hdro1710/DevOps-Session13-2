@@ -1,0 +1,21 @@
+1. build.gradle
+Thêm dependency sau vào khối dependencies:
+runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+
+
+2. src/main/resources/application.yml
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - prometheus
+  endpoint:
+    health:
+      show-details: never
+
+
+Trong đó, include chỉ expose hai endpoint health và prometheus qua web; show-details: never giữ nguyên việc ẩn chi tiết Health.
+
+Đã xác nhận: /actuator/prometheus trả HTTP 200 và xuất các metric JVM, thời gian hoạt động, HTTP request. Như vậy, hai phần cấu hình cần thiết đã được áp dụng và kiểm chứng trên dự án InternshipManager.
